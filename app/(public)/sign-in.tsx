@@ -56,7 +56,7 @@ export default function SignIn() {
 							render={({ field }) => (
 								<FormInput
 									label="Email"
-									placeholder="Email"
+									placeholder="hello@example.com"
 									autoCapitalize="none"
 									autoComplete="email"
 									autoCorrect={false}
@@ -71,7 +71,7 @@ export default function SignIn() {
 							render={({ field }) => (
 								<FormInput
 									label="Password"
-									placeholder="Password"
+									placeholder="••••••"
 									autoCapitalize="none"
 									autoCorrect={false}
 									secureTextEntry

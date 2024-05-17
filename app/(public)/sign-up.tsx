@@ -32,6 +32,7 @@ const formSchema = z
 				"Your password must have at least one special character.",
 			),
 		confirmPassword: z.string().min(8, "Please enter at least 8 characters."),
+		fullName: z.string().min(2, "Please enter at least 2 characters."),
 	})
 	.refine((data) => data.password === data.confirmPassword, {
 		message: "Your passwords do not match.",
@@ -48,12 +49,13 @@ export default function SignUp() {
 			email: "",
 			password: "",
 			confirmPassword: "",
+			fullName: "",
 		},
 	});
 
 	async function onSubmit(data: z.infer<typeof formSchema>) {
 		try {
-			await signUp(data.email, data.password);
+			await signUp(data.email, data.password, data.fullName);
 
 			form.reset();
 		} catch (error: Error | any) {
@@ -72,11 +74,25 @@ export default function SignUp() {
 					<View className="gap-4">
 						<FormField
 							control={form.control}
+							name="fullName"
+							render={({ field }) => (
+								<FormInput
+									label="Full name"
+									placeholder="John Doe"
+									autoCapitalize="none"
+									autoCorrect={false}
+									keyboardType="default"
+									{...field}
+								/>
+							)}
+						/>
+						<FormField
+							control={form.control}
 							name="email"
 							render={({ field }) => (
 								<FormInput
 									label="Email"
-									placeholder="Email"
+									placeholder="hello@example.com"
 									autoCapitalize="none"
 									autoComplete="email"
 									autoCorrect={false}
@@ -91,7 +107,7 @@ export default function SignUp() {
 							render={({ field }) => (
 								<FormInput
 									label="Password"
-									placeholder="Password"
+									placeholder="••••••"
 									autoCapitalize="none"
 									autoCorrect={false}
 									secureTextEntry
@@ -105,7 +121,7 @@ export default function SignUp() {
 							render={({ field }) => (
 								<FormInput
 									label="Confirm Password"
-									placeholder="Confirm password"
+									placeholder="••••••"
 									autoCapitalize="none"
 									autoCorrect={false}
 									secureTextEntry
