@@ -1,6 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link } from "expo-router";
-import { StatusBar } from "expo-status-bar";
 import { View, StyleSheet } from "react-native";
 
 import { SafeAreaView } from "@/components/safe-area-view";
@@ -57,8 +56,7 @@ export default function CategoriesScreen() {
 	};
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary">
-			<StatusBar style="light" />
+		<SafeAreaView className="flex-1 bg-primary"> 
 			<H1 className="text-center text-white pt-6">Categories</H1>
 			<View
 				className="flex-1 items-center justify-center px-4"
@@ -125,5 +123,11 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		lineHeight: 14,
 		fontWeight: "400",
+	},
+	container: {
+		flex: 1,
+		justifyContent: "center",
+		alignItems: "center",
+		backgroundColor: "#B5FCFF",
 	},
 });
