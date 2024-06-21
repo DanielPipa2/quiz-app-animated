@@ -1,7 +1,7 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "expo-router";
-import { useState } from "react";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import {
 	SafeAreaView,
@@ -12,24 +12,42 @@ import {
 } from "react-native";
 import { z } from "zod";
 
+import { CategoryDetailsProps as Props } from "./CategoryDetails.types";
+
 import { availableIcons } from "@/components/CategoryDetails/CategoryDetails.types";
 import { Button } from "@/components/ui/button";
 import { Form, FormField, FormInput } from "@/components/ui/form";
 import { H1, H4, Lead } from "@/components/ui/typography";
-import { usePostCategory } from "@/services/categories/categories.service.hooks";
+import {
+	useDeleteCategory,
+	useFetchCategoriesById,
+	useUpdateCategory,
+} from "@/services/categories/categories.service.hooks";
+import { Category } from "@/services/categories/categories.service.types";
 
 const formSchema = z.object({
 	name: z.string().min(3, "Please enter at least 3 characters."),
 });
 
-export default function NewCategory() {
-	const { mutateAsync: createCategory } = usePostCategory();
+const CategoryDetails: React.FC<Props> = (props) => {
+	const { categoryId } = useLocalSearchParams();
+	const { data: category, status } = useFetchCategoriesById(+categoryId);
+	const { mutateAsync: updateCategory } = useUpdateCategory();
+	const { mutateAsync: deleteCategory } = useDeleteCategory();
 	const { back } = useRouter();
-	const [selectedIcon, setSelectedIcon] = useState("");
+	const [selectedCategory, setSelectedCategory] = useState<Category>(category!);
+	const [selectedIcon, setSelectedIcon] = useState(selectedCategory?.icon);
+
+	useEffect(() => {
+		if (status === "success" && category) {
+			setSelectedCategory(category);
+		}
+	}, [category, status]);
+
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			name: "",
+			name: selectedCategory?.name ?? "",
 		},
 	});
 
@@ -39,14 +57,27 @@ export default function NewCategory() {
 			return;
 		}
 		try {
-			const createdData = await createCategory({
+			const createdData = await updateCategory({
+				id: categoryId as string,
 				name: data.name,
 				icon: selectedIcon,
+				updated_at: new Date().toISOString(),
 			});
 			if (createdData) {
 				ToastAndroid.show("Category created successfully.", ToastAndroid.SHORT);
 			}
 			form.reset();
+			back();
+		} catch (error: Error | any) {
+			console.log(error.message);
+			ToastAndroid.show(error.message, ToastAndroid.SHORT);
+		}
+	}
+
+	async function onDelete() {
+		try {
+			await deleteCategory(+categoryId);
+			ToastAndroid.show("Category deleted successfully.", ToastAndroid.SHORT);
 			back();
 		} catch (error: Error | any) {
 			console.log(error.message);
@@ -62,7 +93,7 @@ export default function NewCategory() {
 		<SafeAreaView className="flex-1 bg-primary pt-10">
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
-				<H1 className="text-white pl-4">Create category</H1>
+				<H1 className="text-white pl-4">Update category</H1>
 			</Button>
 			<View style={styles.container}>
 				<View className="flex-1 gap-3 px-4 py-5">
@@ -81,6 +112,7 @@ export default function NewCategory() {
 									keyboardType="default"
 									className="rounded-2xl pl-6"
 									style={styles.inputStyle}
+									defaultValue={selectedCategory?.name}
 									{...field}
 								/>
 							)}
@@ -103,16 +135,23 @@ export default function NewCategory() {
 					</Form>
 				</View>
 				<Button
-					className="rounded-2xl m-4"
+					className="rounded-2xl mx-4"
 					size="lg"
 					onPress={form.handleSubmit(onSubmit)}
 				>
-					<H4 className="text-white font-bold">Add Category</H4>
+					<H4 className="text-white font-bold">Update Category</H4>
+				</Button>
+				<Button
+					className="rounded-2xl mb-2 mx-4 bg-white"
+					size="lg"
+					onPress={onDelete}
+				>
+					<H4 className="text-primary font-bold">Remove Category</H4>
 				</Button>
 			</View>
 		</SafeAreaView>
 	);
-}
+};
 
 const styles = StyleSheet.create({
 	container: {
@@ -138,8 +177,8 @@ const styles = StyleSheet.create({
 	gridIcons: {
 		flexDirection: "row",
 		flexWrap: "wrap",
-		flex: 1,
 		overflow: "hidden",
+		flex: 1,
 	},
 	iconContainer: {
 		padding: 14,
@@ -153,3 +192,5 @@ const styles = StyleSheet.create({
 		backgroundColor: "#b7b2fc",
 	},
 });
+
+export default CategoryDetails;

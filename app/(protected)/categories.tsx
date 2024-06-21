@@ -1,6 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link } from "expo-router";
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, FlatList } from "react-native";
 
 import { SafeAreaView } from "@/components/safe-area-view";
 import { Button } from "@/components/ui/button";
@@ -29,25 +29,36 @@ export default function CategoriesScreen() {
 		if (status === "success" && categories.length > 0) {
 			return (
 				<View style={styles.cardContainer}>
-					{categories.map((category, index) => {
-						const { icon, name } = category;
-
-						return (
-							<Button
-								key={index}
-								className="items-center justify-center"
-								style={styles.button}
-							>
-								<View className="bg-background" style={styles.iconButton}>
-									<FontAwesome name={icon as any} color="#6c5ce0" size={20} />
-								</View>
-								<Text className="text-primary pt-1.5">{name}</Text>
-								<Text className="text-primary" style={styles.quizText}>
-									{total} Quizzes
-								</Text>
-							</Button>
-						);
-					})}
+					<FlatList
+						data={categories}
+						renderItem={({ item }) => {
+							const { icon, name, id: categoryId } = item;
+							return (
+								<Link href={`/category/${categoryId}`} asChild>
+									<Button
+										className="items-center justify-center"
+										style={styles.button}
+									>
+										<View className="bg-background" style={styles.iconButton}>
+											<FontAwesome
+												name={icon as any}
+												color="#6c5ce0"
+												size={20}
+											/>
+										</View>
+										<Text className="text-primary pt-1.5">{name}</Text>
+										<Text className="text-primary" style={styles.quizText}>
+											{total} Quizzes
+										</Text>
+									</Button>
+								</Link>
+							);
+						}}
+						numColumns={2}
+						keyExtractor={(item) => item.id}
+						columnWrapperStyle={styles.listContainer}
+						showsVerticalScrollIndicator={false}
+					/>
 				</View>
 			);
 		}
@@ -56,7 +67,7 @@ export default function CategoriesScreen() {
 	};
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary"> 
+		<SafeAreaView className="flex-1 bg-primary">
 			<H1 className="text-center text-white pt-6">Categories</H1>
 			<View
 				className="flex-1 items-center justify-center px-4"
@@ -82,18 +93,17 @@ const styles = StyleSheet.create({
 		borderRadius: 32,
 		marginTop: 24,
 		marginBottom: 10,
+		flex: 1,
 	},
 	cardContainer: {
-		flex: 1,
-		flexWrap: "wrap",
-		flexDirection: "row",
+		marginVertical: 16,
+	},
+	listContainer: {
 		justifyContent: "space-between",
-		width: "100%",
-		rowGap: 16,
-		marginTop: 16,
+		marginBottom: 16,
 	},
 	button: {
-		width: 166,
+		width: "48%",
 		height: 124,
 		borderRadius: 24,
 		backgroundColor: "#EFEEFC",
@@ -123,11 +133,5 @@ const styles = StyleSheet.create({
 		fontSize: 10,
 		lineHeight: 14,
 		fontWeight: "400",
-	},
-	container: {
-		flex: 1,
-		justifyContent: "center",
-		alignItems: "center",
-		backgroundColor: "#B5FCFF",
 	},
 });

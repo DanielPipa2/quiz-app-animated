@@ -6,6 +6,8 @@ export interface Category {
 }
 
 export interface CategoryPayload {
+	id?: string;
 	name: string;
 	icon: string;
+	updated_at?: string;
 }
