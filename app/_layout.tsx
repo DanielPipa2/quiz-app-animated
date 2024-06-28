@@ -1,6 +1,8 @@
 import "../global.css";
 import { Stack } from "expo-router";
+import { useRef } from "react";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 import { SupabaseProvider } from "@/context/supabase-provider";
 
@@ -10,24 +12,38 @@ export {
 } from "expo-router";
 
 export default function RootLayout() {
+	const queryClientRef = useRef<QueryClient>();
+	if (!queryClientRef.current) {
+		queryClientRef.current = new QueryClient({
+			defaultOptions: {
+				queries: {
+					refetchOnWindowFocus: process.env.ENV === "production",
+					staleTime: 15 * 1000 * 60,
+				},
+			},
+		});
+	}
+
 	return (
-		<SupabaseProvider>
-			<SafeAreaProvider>
-				<Stack
-					screenOptions={{
-						headerShown: false,
-					}}
-				>
-					<Stack.Screen name="(protected)" />
-					<Stack.Screen name="(public)" />
-					<Stack.Screen
-						name="modal"
-						options={{
-							presentation: "modal",
+		<QueryClientProvider client={queryClientRef.current}>
+			<SupabaseProvider>
+				<SafeAreaProvider>
+					<Stack
+						screenOptions={{
+							headerShown: false,
 						}}
-					/>
-				</Stack>
-			</SafeAreaProvider>
-		</SupabaseProvider>
+					>
+						<Stack.Screen name="(protected)" />
+						<Stack.Screen name="(public)" />
+						<Stack.Screen
+							name="modal"
+							options={{
+								presentation: "modal",
+							}}
+						/>
+					</Stack>
+				</SafeAreaProvider>
+			</SupabaseProvider>
+		</QueryClientProvider>
 	);
 }
