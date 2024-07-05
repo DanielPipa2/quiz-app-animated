@@ -1,7 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { View, Image } from "react-native";
+import { Link } from "expo-router";
+import { View, Image, Text, StyleSheet } from "react-native";
 
-import { H3, Muted, Small, Large, P } from "@/components/ui/typography";
+import { Button } from "@/components/ui/button";
+import { H3, Small, Large, P } from "@/components/ui/typography";
 import { useSupabase } from "@/context/supabase-provider";
 
 export default function TabOneScreen() {
@@ -55,11 +57,42 @@ export default function TabOneScreen() {
 			</View>
 			<View className="bg-background w-full h-[480px] rounded-t-2xl p-6">
 				<Large className="text-start font-bold pb-6">Live Quizzes</Large>
-				<Muted className="">
-					You are now authenticated and this session will persist even after
-					closing the app.
-				</Muted>
+
+				<View className="flex flex-row items-center p-3">
+					<FontAwesome name="book" color="#6c5ce0" size={70} />
+					<View className="flex-1 ml-4">
+						<Large className="text-start font-bold pb-3 text-lg pl-2 -mt-4">
+							Stadistic Math Quiz
+						</Large>
+						<Small className="pl-2 text-gray-500">Math - 12 quizzes</Small>
+					</View>
+					<FontAwesome name="arrow-right" color="#6c5ce0" size={24} />
+				</View>
 			</View>
+			<Link href="/quizzes/add" asChild>
+				<Button style={styles.floatingButton}>
+					<Text className="text-white" style={styles.plus}>
+						+
+					</Text>
+				</Button>
+			</Link>
 		</View>
 	);
 }
+
+const styles = StyleSheet.create({
+	floatingButton: {
+		borderRadius: 50,
+		width: 50,
+		height: 50,
+		position: "absolute",
+		bottom: 20,
+		right: 170,
+		backgroundColor: "#6c5ce0",
+	},
+	plus: {
+		fontSize: 24,
+		lineHeight: 26,
+		fontWeight: "bold",
+	},
+});

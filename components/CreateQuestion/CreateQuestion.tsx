@@ -9,6 +9,8 @@ import {
 } from "react-native";
 
 import { Category, Question } from "./CreateQuestion.types";
+import { Button } from "../ui/button";
+import { H4 } from "../ui/typography";
 
 import { SafeAreaView } from "@/components/safe-area-view";
 import { supabase } from "@/config/supabase";
@@ -68,7 +70,6 @@ const CreateQuestion = () => {
 			!newQuestion.correct_answer.trim() ||
 			!selectedCategory
 		) {
-			console.log("All fields are required");
 			return;
 		}
 		const { error } = await supabase.from("questions").insert([newQuestion]);
@@ -86,13 +87,22 @@ const CreateQuestion = () => {
 
 	return (
 		<SafeAreaView className="flex-1 justify-center items-center w-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 p-4">
+			{/* <TextInput
+				placeholder="Quiz Name"
+				value={newQuestion.question}
+				onChangeText={(text) =>
+					setNewQuestion({ ...newQuestion, question: text })
+				}
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
+			/> */}
+
 			<TextInput
 				placeholder="Question"
 				value={newQuestion.question}
 				onChangeText={(text) =>
 					setNewQuestion({ ...newQuestion, question: text })
 				}
-				className="h-12 border mb-3 p-3 w-full rounded-lg shadow-lg"
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
 			/>
 			<TextInput
 				placeholder="Seconds per Question"
@@ -104,7 +114,7 @@ const CreateQuestion = () => {
 					})
 				}
 				keyboardType="numeric"
-				className="h-12 border  mb-3 p-3 w-full rounded-lg shadow-lg"
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
 			/>
 			<TextInput
 				placeholder="Wrong Answer 1"
@@ -112,7 +122,7 @@ const CreateQuestion = () => {
 				onChangeText={(text) =>
 					setNewQuestion({ ...newQuestion, wrong_answer_1: text })
 				}
-				className="h-12 border border-gray-300 mb-3 p-3 w-full rounded-lg shadow-lg"
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
 			/>
 			<TextInput
 				placeholder="Wrong Answer 2"
@@ -120,7 +130,7 @@ const CreateQuestion = () => {
 				onChangeText={(text) =>
 					setNewQuestion({ ...newQuestion, wrong_answer_2: text })
 				}
-				className="h-12 border border-gray-300 mb-3 p-3 w-full rounded-lg shadow-lg"
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
 			/>
 			<TextInput
 				placeholder="Wrong Answer 3"
@@ -128,7 +138,7 @@ const CreateQuestion = () => {
 				onChangeText={(text) =>
 					setNewQuestion({ ...newQuestion, wrong_answer_3: text })
 				}
-				className="h-12 border border-gray-300 mb-3 p-3 w-full rounded-lg shadow-lg"
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
 			/>
 			<TextInput
 				placeholder="Correct Answer"
@@ -136,7 +146,7 @@ const CreateQuestion = () => {
 				onChangeText={(text) =>
 					setNewQuestion({ ...newQuestion, correct_answer: text })
 				}
-				className="h-12 border border-gray-300 mb-3 p-3 w-full rounded-lg shadow-lg"
+				className="h-12 border-2 rounded-xl w-full border-gray-200"
 			/>
 			<View className="mb-3 w-full shadow-lg">
 				<Picker
@@ -155,19 +165,16 @@ const CreateQuestion = () => {
 					))}
 				</Picker>
 			</View>
-			<TouchableOpacity
-				onPress={createItem}
-				className="bg-blue-500 p-4 rounded-lg shadow-lg w-full mb-3"
-			>
-				<Text className="text-white text-center">Create Question</Text>
-			</TouchableOpacity>
+			<Button className="rounded-2xl m-4" size="lg" onPress={createItem}>
+				<H4 className="text-white font-bold">Submit question</H4>
+			</Button>
+
 			<FlatList
 				data={questions}
 				keyExtractor={(item) => item.id}
 				renderItem={({ item }) => (
 					<View className="p-4 bg-white border border-gray-200 mb-3 rounded-lg shadow-lg w-full">
 						<Text className="text-lg font-semibold">{item.question}</Text>
-						{/* Display other question details here */}
 						<TouchableOpacity
 							onPress={() => deleteItem(item.id)}
 							className="mt-2 bg-red-500 p-2 rounded-lg"
