@@ -17,8 +17,9 @@ export default function ProtectedLayout() {
 	const { colorScheme } = useColorScheme();
 
 	const tabProps = {
-		tabBarStyle: { height: 72 },
-		tabBarIconStyle: { marginTop: 8 },
+		tabBarStyle: {
+			height: 72,
+		},
 		tabBarLabelStyle: {
 			fontSize: 12,
 			marginBottom: 12,
@@ -35,13 +36,13 @@ export default function ProtectedLayout() {
 							? theme.dark.background
 							: theme.light.background,
 				},
-				tabBarShowLabel: true,
+				tabBarShowLabel: false,
 			}}
 		>
 			<Tabs.Screen
 				name="home"
 				options={{
-					title: "Home",
+					title: "Inicio",
 					tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
 					...tabProps,
 				}}
@@ -49,7 +50,7 @@ export default function ProtectedLayout() {
 			<Tabs.Screen
 				name="categories"
 				options={{
-					title: "Categories",
+					title: "Categorías",
 					tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
 					...tabProps,
 				}}
@@ -57,7 +58,7 @@ export default function ProtectedLayout() {
 			<Tabs.Screen
 				name="settings"
 				options={{
-					title: "Profile",
+					title: "Perfil",
 					headerShown: true,
 					headerTintColor: "white",
 					tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
