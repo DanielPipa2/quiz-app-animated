@@ -44,6 +44,16 @@ export default function ProtectedLayout() {
 				options={{
 					title: "Inicio",
 					tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
+					tabBarActiveTintColor: "black",
+					...tabProps,
+				}}
+			/>
+			<Tabs.Screen
+				name="discover"
+				options={{
+					title: "Descubrir",
+					tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
+					tabBarActiveTintColor: "black",
 					...tabProps,
 				}}
 			/>
@@ -52,6 +62,7 @@ export default function ProtectedLayout() {
 				options={{
 					title: "Categorías",
 					tabBarIcon: ({ color }) => <TabBarIcon name="bars" color={color} />,
+					tabBarActiveTintColor: "black",
 					...tabProps,
 				}}
 			/>
@@ -62,6 +73,7 @@ export default function ProtectedLayout() {
 					headerShown: true,
 					headerTintColor: "white",
 					tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
+					tabBarActiveTintColor: "black",
 					headerRight: () => (
 						<Link href="/modal" asChild>
 							<Pressable>

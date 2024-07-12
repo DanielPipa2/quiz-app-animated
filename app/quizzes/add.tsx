@@ -1,24 +1,27 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import { SafeAreaView, StyleSheet, View } from "react-native";
+import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
 
 import CreateQuestion from "@/components/CreateQuestion/CreateQuestion";
 import { Button } from "@/components/ui/button";
 import { H1, H4 } from "@/components/ui/typography";
 
-export default function NewCategory() {
+export default function NewQuiz() {
 	const { back } = useRouter();
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary pt-10">
+		<SafeAreaView className="flex-1 bg-primary pt-0">
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
 				<H1 className="text-white pl-4">Create Quiz</H1>
 			</Button>
 			<View style={styles.container}>
-				<View className="flex-1 gap-3 px-4 py-5">
+				<ScrollView
+					className="flex-1 gap-3 px-4 py-5"
+					showsVerticalScrollIndicator={false}
+				>
 					<CreateQuestion />
-				</View>
+				</ScrollView>
 				<Button className="rounded-2xl m-4" size="lg" onPress={back}>
 					<H4 className="text-white font-bold">Finish</H4>
 				</Button>
