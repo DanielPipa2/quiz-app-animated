@@ -1,4 +1,5 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Link } from "expo-router";
 import { View, Image } from "react-native";
 
 import { H3, Muted, Small, Large, P } from "@/components/ui/typography";
@@ -10,7 +11,7 @@ export default function TabOneScreen() {
 
 	return (
 		<View
-			className="flex-1 items-start justify-center bg-background gap-y-4"
+			className="items-start justify-center bg-background gap-y-4"
 			style={{ backgroundColor: "#6c5ce0" }}
 		>
 			<View className="p-4">
@@ -18,7 +19,7 @@ export default function TabOneScreen() {
 					<View className="flex flex-1 flex-col">
 						<View className="flex flex-row items-center">
 							<FontAwesome size={16} name="hand-peace-o" color="#d1d5db" />
-							<Small className="!pl-2 !text-gray-300 uppercase pt-1 tracking-widest">
+							<Small className="pl-2 text-gray-300 uppercase pt-1 tracking-widest">
 								Welcome
 							</Small>
 						</View>
@@ -34,7 +35,7 @@ export default function TabOneScreen() {
 						width={48}
 					/>
 				</View>
-				<View className="!bg-rose-100 w-full !rounded-3xl p-6 mt-6 !justify-between flex-row items-center">
+				<View className="bg-rose-100 w-full rounded-3xl p-6 mt-6 justify-between flex-row items-center">
 					<View>
 						<Small className="text-rose-800 text-start uppercase pt-1 tracking-widest">
 							RECENT QUIZ
@@ -47,19 +48,22 @@ export default function TabOneScreen() {
 						</View>
 					</View>
 					<View>
-						<View className="flex !bg-rose-300 !rounded-full px-4 py-5">
+						<View className="flex bg-rose-300 rounded-full px-4 py-5">
 							<P className="text-white tracking-wide font-bold">65%</P>
 						</View>
 					</View>
 				</View>
 			</View>
-			<View className="!bg-background w-full !h-[480px] rounded-t-2xl p-6">
+			<View className="bg-background w-full h-[480px] rounded-t-2xl p-6">
 				<Large className="text-start font-bold pb-6">Live Quizzes</Large>
 				<Muted className="">
 					You are now authenticated and this session will persist even after
 					closing the app.
 				</Muted>
 			</View>
+			<Link href="/questions/result" asChild>
+				<P>Resultados</P>
+			</Link>
 		</View>
 	);
 }

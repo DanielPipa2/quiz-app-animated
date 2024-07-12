@@ -25,15 +25,18 @@ export default function RootLayout() {
 	}
 
 	return (
-		<QueryClientProvider client={queryClientRef.current}>
-			<SupabaseProvider>
-				<SafeAreaProvider>
+		<SafeAreaProvider className="flex-1 bg-white">
+			<QueryClientProvider client={queryClientRef.current}>
+				<SupabaseProvider>
 					<Stack
 						screenOptions={{
 							headerShown: false,
 						}}
 					>
-						<Stack.Screen name="(protected)" />
+						<Stack.Screen
+							name="(protected)"
+							options={{ statusBarColor: "#6c5ce0" }}
+						/>
 						<Stack.Screen name="(public)" />
 						<Stack.Screen
 							name="modal"
@@ -42,8 +45,8 @@ export default function RootLayout() {
 							}}
 						/>
 					</Stack>
-				</SafeAreaProvider>
-			</SupabaseProvider>
-		</QueryClientProvider>
+				</SupabaseProvider>
+			</QueryClientProvider>
+		</SafeAreaProvider>
 	);
 }
