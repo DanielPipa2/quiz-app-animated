@@ -1,23 +1,61 @@
+import { Video, ResizeMode } from "expo-av";
 import { useRouter } from "expo-router";
-import React from "react";
-import { View } from "react-native";
+import LottieView from "lottie-react-native";
+import React, { useEffect } from "react";
+import { View, Dimensions } from "react-native";
 
 import { SafeAreaView } from "@/components/safe-area-view";
 import { Button } from "@/components/ui/button";
 import { Text } from "@/components/ui/text";
-import { H1, Muted } from "@/components/ui/typography";
+import { H1 } from "@/components/ui/typography";
 
 export default function WelcomeScreen() {
 	const router = useRouter();
+	const { width } = Dimensions.get("window");
+	const video = React.useRef<any>(null);
+
+	useEffect(() => {
+		video.current?.playAsync();
+	}, []);
 
 	return (
-		<SafeAreaView className="flex flex-1 bg-background p-4">
-			<View className="flex flex-1 items-center justify-center gap-y-4">
-				<H1 className="text-center">Welcome to Expo Supabase Starter</H1>
-				<Muted className="text-center">
-					A comprehensive starter project for developing Expo applications with
-					Supabase as the backend.
-				</Muted>
+		<SafeAreaView className="flex flex-1 p-4 bg-purple-50">
+			<Video
+				ref={video}
+				style={{
+					position: "absolute",
+					top: 0,
+					left: 0,
+					right: 0,
+					bottom: 0,
+				}}
+				source={{
+					uri: "https://cdn.pixabay.com/video/2024/05/30/214500_large.mp4",
+				}}
+				useNativeControls={false}
+				resizeMode={ResizeMode.COVER}
+				isLooping
+			/>
+			<View className="flex flex-1 items-center justify-center gap-y-4 ">
+				<View className="flex items-center justify-center  w-80 h-80 relative">
+					<H1
+						className="text-center text-white shadow-sm absolute z-50"
+						style={{
+							zIndex: 1000,
+						}}
+					>
+						Quiz App!
+					</H1>
+					<LottieView
+						source={require("@/assets/lottie/logo.json")}
+						autoPlay
+						loop
+						style={{
+							height: width,
+							width,
+						}}
+					/>
+				</View>
 			</View>
 			<View className="flex flex-row gap-x-4">
 				<Button
