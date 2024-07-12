@@ -25,12 +25,13 @@ export default function RootLayout() {
 	}
 
 	return (
-		<SafeAreaProvider className="flex-1 bg-white">
+		<SafeAreaProvider>
 			<QueryClientProvider client={queryClientRef.current}>
 				<SupabaseProvider>
 					<Stack
 						screenOptions={{
 							headerShown: false,
+							statusBarColor: "#6c5ce0",
 						}}
 					>
 						<Stack.Screen

@@ -90,7 +90,7 @@ const CategoryDetails: React.FC<Props> = (props) => {
 	};
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary pt-10">
+		<SafeAreaView className="flex-1 bg-primary pt-0">
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
 				<H1 className="text-white pl-4">Update category</H1>
