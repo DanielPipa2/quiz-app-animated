@@ -1,8 +1,9 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import { SafeAreaView, ScrollView, StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
 import CreateQuestion from "@/components/CreateQuestion/CreateQuestion";
+import { SafeAreaView } from "@/components/safe-area-view";
 import { Button } from "@/components/ui/button";
 import { H1, H4 } from "@/components/ui/typography";
 
@@ -10,7 +11,10 @@ export default function NewQuiz() {
 	const { back } = useRouter();
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary pt-0">
+		<SafeAreaView
+			className="flex-1 pt-0"
+			style={{ backgroundColor: "#6c5ce0" }}
+		>
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
 				<H1 className="text-white pl-4">Create Quiz</H1>
@@ -22,7 +26,11 @@ export default function NewQuiz() {
 				>
 					<CreateQuestion />
 				</ScrollView>
-				<Button className="rounded-2xl m-4" size="lg" onPress={back}>
+				<Button
+					className="rounded-2xl m-4 dark:bg-[#6c5ce0]"
+					size="lg"
+					onPress={back}
+				>
 					<H4 className="text-white font-bold">Finish</H4>
 				</Button>
 			</View>
@@ -45,6 +53,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		justifyContent: "flex-start",
 		height: 56,
+		backgroundColor: "#6c5ce0",
 	},
 	inputStyle: {
 		height: 50,

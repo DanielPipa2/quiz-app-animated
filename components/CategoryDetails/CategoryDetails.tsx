@@ -90,7 +90,10 @@ const CategoryDetails: React.FC<Props> = (props) => {
 	};
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary pt-0">
+		<SafeAreaView
+			className="flex-1 bg-primary pt-0"
+			style={{ backgroundColor: "#6c5ce0" }}
+		>
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
 				<H1 className="text-white pl-4">Update category</H1>
@@ -110,7 +113,7 @@ const CategoryDetails: React.FC<Props> = (props) => {
 									autoComplete="off"
 									autoCorrect={false}
 									keyboardType="default"
-									className="rounded-2xl pl-6"
+									className="rounded-2xl pl-6 dark:bg-white"
 									style={styles.inputStyle}
 									defaultValue={selectedCategory?.name}
 									{...field}
@@ -135,7 +138,7 @@ const CategoryDetails: React.FC<Props> = (props) => {
 					</Form>
 				</View>
 				<Button
-					className="rounded-2xl mx-4"
+					className="rounded-2xl mx-4 bg-[#6c5ce0]"
 					size="lg"
 					onPress={form.handleSubmit(onSubmit)}
 				>
@@ -146,7 +149,7 @@ const CategoryDetails: React.FC<Props> = (props) => {
 					size="lg"
 					onPress={onDelete}
 				>
-					<H4 className="text-primary font-bold">Remove Category</H4>
+					<H4 className="text-[#6c5ce0] font-bold">Remove Category</H4>
 				</Button>
 			</View>
 		</SafeAreaView>
@@ -168,6 +171,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		justifyContent: "flex-start",
 		height: 56,
+		backgroundColor: "#6c5ce0",
 	},
 	inputStyle: {
 		height: 50,
