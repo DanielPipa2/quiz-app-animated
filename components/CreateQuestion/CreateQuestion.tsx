@@ -186,7 +186,7 @@ const CreateQuestion = () => {
 				</Picker>
 			</View>
 			<Button
-				className="rounded-2xl w-full"
+				className="rounded-2xl w-full bg-white"
 				size="lg"
 				variant="secondary"
 				onPress={createItem}
@@ -202,10 +202,10 @@ const CreateQuestion = () => {
 						className="p-4 bg-white border border-gray-200 mb-3 rounded-2xl w-full"
 						key={item.id}
 					>
-						<P className="text-lg font-semibold">{item.question}</P>
+						<P className="text-lg font-semibold text-black">{item.question}</P>
 						<TouchableOpacity
 							onPress={() => deleteItem(item.id)}
-							className="mt-2 bg-red-500 p-2 rounded-lg"
+							className="mt-2 bg-red-500 p-2.5 rounded-lg"
 						>
 							<P className="text-white text-center">Delete</P>
 						</TouchableOpacity>
