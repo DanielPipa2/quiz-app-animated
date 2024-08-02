@@ -1,3 +1,5 @@
+// Category service interfaces and types
+
 export interface Category {
 	id: string;
 	name: string;

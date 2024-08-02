@@ -1,3 +1,5 @@
+// Categories services
+
 import { Category, CategoryPayload } from "./categories.service.types";
 
 import { supabase } from "@/config/supabase";

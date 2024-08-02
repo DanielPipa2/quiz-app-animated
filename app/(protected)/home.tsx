@@ -71,7 +71,7 @@ export default function TabOneScreen() {
 					<FontAwesome name="arrow-right" color="#6c5ce0" size={24} />
 				</View>
 			</View>
-			<Link href="/questions/result" asChild>
+			<Link href="/quizzes/add" asChild>
 				<Button style={styles.floatingButton}>
 					<Text className="text-white" style={styles.plus}>
 						+

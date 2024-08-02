@@ -1,13 +1,13 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { useRouter } from "expo-router";
-import { StyleSheet, View } from "react-native";
+import { ScrollView, StyleSheet, View } from "react-native";
 
-import CreateQuiz from "@/components/CreateQuiz/CreateQuiz";
+import CreateQuestion from "@/components/CreateQuestion/CreateQuestion";
 import { SafeAreaView } from "@/components/safe-area-view";
 import { Button } from "@/components/ui/button";
-import { H1 } from "@/components/ui/typography";
+import { H1, H4 } from "@/components/ui/typography";
 
-export default function NewQuiz() {
+export default function NewQuestion() {
 	const { back } = useRouter();
 
 	return (
@@ -17,10 +17,22 @@ export default function NewQuiz() {
 		>
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
-				<H1 className="text-white pl-4">Create Quiz</H1>
+				<H1 className="text-white pl-4">Create Questions</H1>
 			</Button>
 			<View style={styles.container}>
-				<CreateQuiz />
+				<ScrollView
+					className="flex-1 gap-3 px-4 py-5"
+					showsVerticalScrollIndicator={false}
+				>
+					<CreateQuestion />
+				</ScrollView>
+				<Button
+					className="rounded-2xl m-4 dark:bg-[#6c5ce0]"
+					size="lg"
+					onPress={back}
+				>
+					<H4 className="text-white font-bold">Finish</H4>
+				</Button>
 			</View>
 		</SafeAreaView>
 	);
