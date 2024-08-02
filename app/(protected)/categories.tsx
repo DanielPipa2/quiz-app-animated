@@ -39,15 +39,23 @@ export default function CategoriesScreen() {
 										className="items-center justify-center"
 										style={styles.button}
 									>
-										<View className="bg-background" style={styles.iconButton}>
+										<View
+											className="bg-background dark:bg-white"
+											style={styles.iconButton}
+										>
 											<FontAwesome
 												name={icon as any}
 												color="#6c5ce0"
 												size={20}
 											/>
 										</View>
-										<Text className="text-primary pt-1.5">{name}</Text>
-										<Text className="text-primary" style={styles.quizText}>
+										<Text className="text-primary pt-1.5 dark:text-[#6c5ce0]">
+											{name}
+										</Text>
+										<Text
+											className="text-primary dark:text-[#6c5ce0]"
+											style={styles.quizText}
+										>
 											{total} Quizzes
 										</Text>
 									</Button>
@@ -67,7 +75,10 @@ export default function CategoriesScreen() {
 	};
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary">
+		<SafeAreaView
+			className="flex-1 bg-primary"
+			style={{ backgroundColor: "#6c5ce0" }}
+		>
 			<H1 className="text-center text-white pt-6">Categories</H1>
 			<View
 				className="flex-1 items-center justify-center px-4"

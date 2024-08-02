@@ -2,6 +2,7 @@ import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link } from "expo-router";
 import { View, Image, Text, StyleSheet } from "react-native";
 
+import { SafeAreaView } from "@/components/safe-area-view";
 import { Button } from "@/components/ui/button";
 import { H3, Small, Large, P } from "@/components/ui/typography";
 import { useSupabase } from "@/context/supabase-provider";
@@ -11,7 +12,7 @@ export default function TabOneScreen() {
 	const { full_name } = user?.user_metadata ?? {};
 
 	return (
-		<View
+		<SafeAreaView
 			className="items-start justify-center bg-background gap-y-4"
 			style={{ backgroundColor: "#6c5ce0" }}
 		>
@@ -55,12 +56,14 @@ export default function TabOneScreen() {
 					</View>
 				</View>
 			</View>
-			<View className="bg-background w-full h-[548px] rounded-t-2xl p-6">
-				<Large className="text-start font-bold pb-6">Live Quizzes</Large>
+			<View className="bg-background w-full h-[548px] rounded-t-2xl p-6 dark:bg-white">
+				<Large className="text-start font-bold pb-6 dark:text-black">
+					Live Quizzes
+				</Large>
 				<View className="flex flex-row items-center p-3">
 					<FontAwesome name="book" color="#6c5ce0" size={70} />
 					<View className="flex-1 ml-4">
-						<Large className="text-start font-bold pb-3 text-lg pl-2 -mt-4">
+						<Large className="text-start font-bold pb-3 text-lg pl-2 -mt-4 dark:text-black">
 							Statistic Math Quiz
 						</Large>
 						<Small className="pl-2 text-gray-500">Math - 12 quizzes</Small>
@@ -75,7 +78,7 @@ export default function TabOneScreen() {
 					</Text>
 				</Button>
 			</Link>
-		</View>
+		</SafeAreaView>
 	);
 }
 

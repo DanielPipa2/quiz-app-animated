@@ -1,4 +1,3 @@
-import { Picker } from "@react-native-picker/picker";
 import React, { useEffect, useState } from "react";
 import {
 	TextInput,
@@ -9,16 +8,17 @@ import {
 	StyleSheet,
 } from "react-native";
 
-import { Category, Question } from "./CreateQuestion.types";
 import { Button } from "../ui/button";
 import { H4, Lead, P } from "../ui/typography";
 
 import { SafeAreaView } from "@/components/safe-area-view";
 import { supabase } from "@/config/supabase";
+import { Category } from "@/services/categories/categories.service.types";
+import { Questions } from "@/services/questions/questions.service.types";
 
 const CreateQuestion = () => {
 	const [loading, setLoading] = useState(true);
-	const [questions, setQuestions] = useState<Question[]>([]);
+	const [questions, setQuestions] = useState<Questions[]>([]);
 	const [categories, setCategories] = useState<Category[]>([]);
 	const [selectedCategory, setSelectedCategory] = useState<
 		string | undefined
@@ -78,7 +78,7 @@ const CreateQuestion = () => {
 		fetchItems();
 	}
 
-	async function deleteItem(id: string) {
+	async function deleteItem(id: number) {
 		const { error } = await supabase.from("questions").delete().match({ id });
 		if (error) console.log("Error: ", error);
 		fetchItems();
@@ -167,7 +167,7 @@ const CreateQuestion = () => {
 				className="border-2 rounded-2xl pl-6 w-full border-gray-200"
 				style={styles.inputStyle}
 			/>
-			<Lead className="text-black font-medium pt-4 pb-2">Quiz Category</Lead>
+			{/* <Lead className="text-black font-medium pt-4 pb-2">Quiz Category</Lead>
 			<View className="border-2 rounded-2xl pl-6 w-full border-gray-200 mb-6">
 				<Picker
 					selectedValue={selectedCategory}
@@ -184,9 +184,9 @@ const CreateQuestion = () => {
 						/>
 					))}
 				</Picker>
-			</View>
+			</View> */}
 			<Button
-				className="rounded-2xl w-full"
+				className="rounded-2xl w-full bg-white"
 				size="lg"
 				variant="secondary"
 				onPress={createItem}
@@ -202,10 +202,10 @@ const CreateQuestion = () => {
 						className="p-4 bg-white border border-gray-200 mb-3 rounded-2xl w-full"
 						key={item.id}
 					>
-						<P className="text-lg font-semibold">{item.question}</P>
+						<P className="text-lg font-semibold text-black">{item.question}</P>
 						<TouchableOpacity
 							onPress={() => deleteItem(item.id)}
-							className="mt-2 bg-red-500 p-2 rounded-lg"
+							className="mt-2 bg-red-500 p-2.5 rounded-lg"
 						>
 							<P className="text-white text-center">Delete</P>
 						</TouchableOpacity>

@@ -59,7 +59,10 @@ export default function NewCategory() {
 	};
 
 	return (
-		<SafeAreaView className="flex-1 bg-primary pt-0">
+		<SafeAreaView
+			className="flex-1 bg-primary pt-0"
+			style={{ backgroundColor: "#6c5ce0" }}
+		>
 			<Button onPress={back} style={styles.headerButton}>
 				<FontAwesome name="chevron-left" size={20} color="white" />
 				<H1 className="text-white pl-4">Create category</H1>
@@ -79,7 +82,7 @@ export default function NewCategory() {
 									autoComplete="off"
 									autoCorrect={false}
 									keyboardType="default"
-									className="rounded-2xl pl-6"
+									className="rounded-2xl pl-6 dark:bg-white"
 									style={styles.inputStyle}
 									{...field}
 								/>
@@ -103,7 +106,7 @@ export default function NewCategory() {
 					</Form>
 				</View>
 				<Button
-					className="rounded-2xl m-4"
+					className="rounded-2xl m-4 bg-[#6c5ce0]"
 					size="lg"
 					onPress={form.handleSubmit(onSubmit)}
 				>
@@ -129,6 +132,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		justifyContent: "flex-start",
 		height: 56,
+		backgroundColor: "#6c5ce0",
 	},
 	inputStyle: {
 		height: 50,
